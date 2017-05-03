@@ -21,8 +21,13 @@ public class BinaryTree {
         tree.root = new Node(1);
         tree.root.left = new Node(2);
         tree.root.right = new Node(3);
-        tree.root.left.left = new Node(4);
         tree.root.left.right = new Node(5);
+        tree.root.left.left = new Node(4);
+        tree.root.right.right = new Node(6);
+        tree.root.right.left= new Node(6);
+        tree.root.right.left.left= new Node(15);
+//        tree.root.left.right.left= new Node(7);
+  //      tree.root.left.right.left.left.right= new Node(8);
         //tree.preOrderIterative(tree.root);
 
         //System.out.println("Height"+tree.getHeight(tree.root));
@@ -31,7 +36,16 @@ public class BinaryTree {
 
      //   tree.printAncesstors(tree.root,7);
         //tree.inOrderIterative(tree.root);
-        tree.top_view(tree.root);
+        //tree.top_view(tree.root);
+       //System.out.print(tree.findMax(tree.root));
+       // tree.updatetree(tree.root);
+        //tree.inOrderRecursive(tree.root);
+       // System.out.print(tree.countNodes(tree.root));
+//        System.out.print(tree.isComplete(tree.root,0,tree.countNodes(tree.root)));
+//        System.out.print(tree.isFullBinaryTree(tree.root));
+        System.out.print(tree.sumLeftLeafNode(tree.root));
+
+
 
     }
     protected  int getHeight(Node root){
@@ -199,5 +213,108 @@ protected void inOrderIterative(Node root){
 
 
     }
+    int findMax(Node root){
+    if(root==null){
+        return 0;
+    }
+    int res=root.data;
+    int lres=findMax(root.left);
+        int rres=findMax(root.right);
+        if(lres>res){
+            res=lres;
+        }
+        if(rres>res){
+            res=rres;
 
+        }
+        return res;
+
+    }
+int findMin(Node root){
+        if(root==null){
+            return Integer.MAX_VALUE;
+        }
+        int res=root.data;
+        int lres=findMin(root.left);
+        int rres=findMin(root.right);
+        if(lres<res){
+            res=lres;
+        }
+        if(rres<res){
+            res=rres;
+        }
+        return res;
+
+}
+    int updatetree(Node root)
+     {
+        // Base cases
+        if (root==null)
+            return 0;
+        if (root.left == null && root.right == null)
+            return root.data;
+
+        // Update left and right subtrees
+        int leftsum  = updatetree(root.left);
+        int rightsum = updatetree(root.right);
+
+        // Add leftsum to current node
+        root.data += leftsum;
+
+        // Return sum of values under root
+        return root.data + rightsum;
+    }
+    int countNodes(Node root){
+    if(root==null){
+        return 0;
+    }
+    return (1+countNodes(root.left)+countNodes(root.right));
+    }
+    boolean isComplete(Node root,int index,int countOfNodes){
+        if(root==null){
+            return true;
+        }
+        if(index>=countOfNodes){
+            return false;
+        }
+        return isComplete(root.left,2*index+1,countOfNodes)
+        && isComplete(root.right,2*index+2,countOfNodes);
+
+
+    }
+   boolean isFullBinaryTree(Node root){
+    if(root==null){
+        return true;
+    }
+    if(root.left==null && root.right==null){
+        return true;
+    }
+    if((root.right!=null) && (root.left!=null)){
+        return (isFullBinaryTree(root.left))&& isFullBinaryTree(root.right);
+    }
+    return false;
+   }
+   int sumLeftLeafNode(Node root){
+       int res=0;
+        if(root!=null){
+            if(isLeafNode(root.left)){
+                res+=root.left.data;
+            }else{
+                res+=sumLeftLeafNode(root.left);
+            }
+            res+=sumLeftLeafNode(root.right);
+
+        }
+       return res;
+   }
+   boolean isLeafNode(Node node){
+       if(node==null){
+           return false;
+       }
+       if(node.left==null && node.right==null){
+           return true;
+       }
+       return false;
+   }
+   
 }
