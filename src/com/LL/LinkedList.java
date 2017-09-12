@@ -31,45 +31,34 @@ protected void display(Node head){
             ptr=ptr.next;
         }
 }
-protected void printReverse(Node head){
+
+
+protected void reverseList(Node node){
+Node temp,next=null,prev=null,current=node;
+while(current!=null){
+    next=current.next;
+    current.next=prev;
+    prev=current;
+    current=next;
+}
+head=prev;
+
+}
+
+protected void reverseListRecursive(Node h){
+    Node first,rest;
     if(head==null){
         return;
     }
-    printReverse(head.next);
-    System.out.print(" "+head.data);
-}
-
-protected void reverseList(Node node){
-
-    Node current=node;
-    Node prev=null;
-    Node next=null;
-    while(current!=null){
-        next=current.next;
-        current.next=prev;
-        prev=current;
-        current=next;
+    first=head;
+    rest=first.next;
+    if(rest==null){
+        return;
     }
-    head=prev;
-}
-
-protected Node reverseListRecursive(Node h){
-    Node current;
-    Node rest;
-    if(h==null){
-        return null;
-    }
-   if(h.next==null){
-        return h;
-   }
-   rest=h.next;
-   h.next=null;
-
-   Node reversed=reverseListRecursive(rest);
-   rest.next=h;
-
-   return reversed;
-
+    reverseListRecursive(first.next);
+    first.next.next=first;
+    first.next=null;
+    head=rest;
 }
 
 
@@ -85,8 +74,8 @@ protected Node reverseListRecursive(Node h){
         ll.push(5);
        //ll.display(ll.head);
        // ll.printReverse(ll.head);
-      //ll.reverseList(ll.head);
-  ll.reverseListRecursive(ll.head);
+   //   ll.reverseList(ll.head);
+         ll.reverseListRecursive(ll.head);
         ll.display(ll.head);
     }
 }

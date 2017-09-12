@@ -51,19 +51,6 @@ public  void insertAtEnd(int item){
     node.prev=last;
 
 }
-    public void reverse(DLLNode Node){
-       DLLNode temp=null;
-       DLLNode current=head;
-        while(current!=null){
-            temp=current.prev;
-            current.prev=current.next;
-            current.next=temp;
-            current=current.prev;
-        }
-        if(temp!=null){
-            head=temp.prev;
-        }
-    }
 
 public void deleteFromDLL(DLLNode head,DLLNode del){
     if(head==null && del==null){
@@ -88,16 +75,31 @@ public void dispDLL(){
         last=last.next;
     }
 }
+public void reverseDLL(){
+    DLLNode  temp = null,current,prev=null,next;
+    current=head;
+    while(current!=null){
+        temp=current.prev;
+        current.prev=current.next;
+        current.next=temp;
+        current=current.prev;
+    }
+    if(temp!=null){
+        head=temp.prev;
+    }
+
+
+}
     public static void main(String[] args) {
         DoubleLL doubleLL=new DoubleLL();
+        doubleLL.insertDLL(2);
         doubleLL.insertDLL(4);
-        doubleLL.insertDLL(6);
         doubleLL.insertDLL(8);
        // doubleLL.insertAfterDLL(5,doubleLL.head);
-        doubleLL.insertAtEnd(7);
+        doubleLL.insertAtEnd(10);
         //doubleLL.deleteFromDLL(doubleLL.head,doubleLL.head.next.next);
         //doubleLL.dispDLL();
-        doubleLL.reverse(doubleLL.head);
+        doubleLL.reverseDLL();
         doubleLL.dispDLL();
 
 
