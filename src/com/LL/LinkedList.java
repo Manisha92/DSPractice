@@ -1,3 +1,5 @@
+package com.LL;
+
 /**
  * Created by manisha on 10/1/17.
  */
@@ -7,11 +9,15 @@
     Node head;
     class Node{
         Node next;
-        int data;
+         int data;
         Node(int item){
             data=item;
             next=null;
         }
+    }
+
+    public Node getNext(Node node){
+        return node.next;
     }
     protected void push(int data){
         Node node=new Node(data);
